@@ -1,0 +1,18 @@
+<form #f="ngForm" (ngSubmit)="submitForm(f)">
+    <h4>Add review</h4>
+    <p>Author</p>
+    <input name="author" class="form-control" [(ngModel)]="review.author" required>
+    <p>Title</p>
+    <input name="title" class="form-control" [(ngModel)]="review.title" required>
+    <p>Content</p>
+    <input name="content" class="form-control" [(ngModel)]="review.content" required>
+    <p>Rate</p>
+    <select class="form-control" name="rate" [(ngModel)]="review.rate" required>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    <button [disabled]="f.invalid" type="submit" class="btn-primary" >Send Review</button>
+</form>

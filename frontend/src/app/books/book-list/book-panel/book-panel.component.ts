@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Book} from '../../model/book';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-book-panel',

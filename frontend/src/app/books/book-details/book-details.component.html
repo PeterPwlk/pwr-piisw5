@@ -1,0 +1,13 @@
+<div class="bs-data-panel">
+    <span class="title">{{ book.title }}</span>
+    <span class="author">{{ book.author }}</span>
+    <h4>Reviews</h4>
+    <ul class="list-group">
+        <app-review *ngFor="let review of reviews" [review]="review">
+        </app-review>
+    </ul>
+    <div *ngIf="fetching" class="spinner-border text-primary"></div>
+    <p *ngIf="!reviews || reviews.length === 0">No reviews</p>
+    <app-add-review [book]="book" (reviewPost)="getReviews()"></app-add-review>
+</div>
+  
