@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../model/book';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Review } from '../../reviews/model/review';
 import { ReviewsRestService } from '../../reviews/shared/services/reviews-rest.service';
 import { Observable } from 'rxjs';
+import { BooksRestService } from '../shared/services/books-rest.service';
 
 @Component({
   selector: 'app-book-details',
@@ -16,7 +17,10 @@ export class BookDetailsComponent implements OnInit {
   reviews: Review[];
   fetching: boolean;
 
-  constructor(private readonly route: ActivatedRoute, private readonly reviewService: ReviewsRestService) { }
+  constructor(private readonly route: ActivatedRoute,
+              private readonly reviewService: ReviewsRestService,
+              private readonly bookService: BooksRestService,
+              private readonly router: Router) { }
 
   ngOnInit(): void {
     this.book = this.route.snapshot.data.book;
@@ -32,6 +36,16 @@ export class BookDetailsComponent implements OnInit {
         this.reviews = reviews;
         this.fetching = false;
       }, 3000);
+    });
+  }
+
+  deleteBook(): void {
+    this.reviewService.findAllForBook(this.book.id).subscribe(rev => {
+      if(!rev || rev.length === 0){
+        if (confirm('Confirm delete')) {
+          this.bookService.delete(this.book.id).subscribe(e => this.router.navigateByUrl('/books'));
+        }
+      }
     });
   }
 
