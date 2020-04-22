@@ -41,7 +41,7 @@ export class BookDetailsComponent implements OnInit {
 
   deleteBook(): void {
     this.reviewService.findAllForBook(this.book.id).subscribe(rev => {
-      if(!rev || rev.length === 0) {
+      if (!rev || rev.length === 0) {
         if (confirm('Confirm delete')) {
           this.bookService.delete(this.book.id).subscribe(e => this.router.navigateByUrl('/books'));
         }
